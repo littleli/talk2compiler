@@ -38,7 +38,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
-                    <argLine>-XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCI --module-path=${compiler.dir} --upgrade-module-path=${compiler.dir}/compiler.jar</argLine>
+                    <!-- -Dgraal.MethodFilter=*.mulAndSum -->
+                    <argLine>-Dgraal.Dump=Truffle:3  -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCI -XX:+UseJVMCICompiler --module-path=${compiler.dir} --upgrade-module-path=${compiler.dir}/compiler.jar</argLine>
                 </configuration>
             </plugin>
             <plugin>

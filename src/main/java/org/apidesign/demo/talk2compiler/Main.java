@@ -6,19 +6,29 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.RootNode;
 
 public class Main extends RootNode {
-    static final CallTarget CODE = Truffle.getRuntime().createCallTarget(new Main());
+    private final int mul;
+    final CallTarget CODE = Truffle.getRuntime().createCallTarget(this);
 
-    public Main() {
+    public Main(int mul) {
         super(null);
+        this.mul = mul;
     }
 
     public static void main(String... args) {
-        String who = args.length > 0 ? args[0] : "unknown";
-        System.err.println(CODE.call(who));
     }
 
     @Override
     public Object execute(VirtualFrame frame) {
-        return String.format("Hello from %s!", frame.getArguments()[0]);
+        int[] arr = (int[]) frame.getArguments()[0];
+        return mulAndSum(arr);
+    }
+
+    Object mulAndSum(int[] arr) {
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int value = arr[i];
+            sum += mul * value;
+        }
+        return sum;
     }
 }
